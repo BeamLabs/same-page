@@ -1,23 +1,26 @@
 'use strict'
-// server/app.js
-
 const express = require('express');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 
 const app = express();
 
+// Setup body parser
+app.use(bodyParser.json()); // support json encoded bodies.
+
 // Setup logger
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
-app.get('/test', (req, res) => {
-  let response = {
-    foo: "foo",
-    bar: "bar"
-  };
+app.post('/api/status', function(req, res) {
+    console.log('status endpoint request body: ' + JSON.stringify(req.body));
+    let yesterday = req.body.yesterday;
+    let today = req.body.today;
+    let blockers = req.body.blocker;
 
-  res.send(response);
-})
+    // Simply echo back what we just received.
+    res.send(yesterday + ' ' + today + ' ' + blockers);
+});
 
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
