@@ -20,7 +20,16 @@ class StatusForm extends Component {
         console.log(JSON.stringify(this.state))
 
         // TODO: Form Validation
-        StatusController.postStatus(this.state.yesterday, this.state.today, this.state.blocker);
+
+        if (!this.state.yesterday) {
+            alert("Please enter what you did yesterday");
+        } else if (!this.state.today) {
+            alert("Please enter what going to to today.");
+        } else if (!this.state.blocker) {
+            alert("Please enter a blocker.");
+        } else {
+            StatusController.postStatus(this.state.yesterday, this.state.today, this.state.blocker);
+        }
     }
 
     handleInputChange(event) {
