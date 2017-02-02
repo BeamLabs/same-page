@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import '../App.css';
+import './StatusForm.css';
 import StatusController from './StatusController';
+
 
 class StatusForm extends Component {
 
@@ -15,12 +16,6 @@ class StatusForm extends Component {
     }
 
     handleSubmit(event) {
-        // To submit the form, simply use the state.
-        this.setState({clicked: this.state.clicked+1})
-        console.log(JSON.stringify(this.state))
-
-        // TODO: Form Validation
-
         if (!this.state.yesterday) {
             alert("Please enter what you did yesterday");
         } else if (!this.state.today) {
@@ -48,34 +43,36 @@ class StatusForm extends Component {
     render() {
         return (
             <div className="App">
-
                 <h3>Yesterday I ...</h3>
                 <textarea
+                    className="status-text-area"
                     type="text"
                     name="yesterday"
                     onChange={this.handleInputChange} />
 
                 <h3>Today I will ... </h3>
                 <textarea
+                    className="status-text-area"
                     type="text"
                     name="today"
                     onChange={this.handleInputChange} />
 
                 <h3>I am currently blocked by...</h3>
                 <textarea
+                    className="status-text-area"
                     type="text"
                     name="blocker"
                     onChange={this.handleInputChange} />
 
                 <div>
                     <button
+                        className="status-submit-button"
                         type="button"
                         name="done"
                         onClick={this.handleSubmit}>
                         Submit
                     </button>
                 </div>
-
             </div>
         );
     }
